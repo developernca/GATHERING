@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Platform
+  - PlatformItem
+  - Fence
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -11,11 +16,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Platform
+  - Player
+  - Enemy
+  - Fence
+  - Pickup
   - 
   - 
   - 
@@ -40,4 +45,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 432824595
+    locked: 0
+  - name: Enemy
+    uniqueID: 2651549935
+    locked: 0
+  - name: Player
+    uniqueID: 1770935177
+    locked: 0
+  - name: Pickup
+    uniqueID: 1380208405
+    locked: 0
+  - name: Platform
+    uniqueID: 4218674757
+    locked: 0
+  - name: UI
+    uniqueID: 644524737
     locked: 0
