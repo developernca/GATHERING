@@ -47,6 +47,7 @@ public class Story : MonoBehaviour
     public void OnStroyReadClick()
     {
         canvas.SetActive(false);
-        SceneManager.LoadScene(Constants.SCENE_LVL1);
+        int currenLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(++currenLevel);
     }
 }

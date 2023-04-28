@@ -3,10 +3,6 @@ public class Constants
     // Pref
     public static string PREF_TOTAL_SCORE = "total_score";
 
-
-    // Scene name
-    public static string SCENE_LVL1 = "Level1Scene";
-
     // Gameobject name
     public static string NAME_PLATFORM = "Platform";
     public static string NAME_FINISH = "Finish";
