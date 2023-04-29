@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public static event UnityAction PlayerPickupFinish;
     public AudioSource audioCoinPickup;
     public AudioSource audioJumpOnEnemy;
-    public AudioSource audioPlayerCollideEnemy;
+    public AudioSource audioPlayerDead;
     public Rigidbody2D rb2d;
     public BoxCollider2D b2d;
     public Animator animator;
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         else
         {
             // collide from side, player dead. Game over.
-            audioPlayerCollideEnemy.Play();
+            audioPlayerDead.Play();
             rb2d.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
             Destroy(b2d);
         }

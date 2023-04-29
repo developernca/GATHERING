@@ -458,7 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioCoinPickup: {fileID: 2356985963166116065}
   audioJumpOnEnemy: {fileID: 7928992277800002292}
-  audioPlayerCollideEnemy: {fileID: 4685309183534980910}
+  audioPlayerDead: {fileID: 4685309183534980910}
   rb2d: {fileID: 1971014850166547193}
   b2d: {fileID: 1971014850166547192}
   animator: {fileID: 1971014850166547195}

@@ -24,7 +24,7 @@ public class UIHandler : MonoBehaviour
         }
         totalScore = PlayerPrefs.GetInt(Constants.PREF_TOTAL_SCORE, 0);
         txtLevel.text = "Level - " + currentLevel;
-        CalculateScoreForDevelopment();
+        // CalculateScoreForDevelopment();
     }
 
     private void Start()
