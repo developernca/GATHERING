@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
     private void DoMove()
     {
         rb2d.velocity = new Vector2(moveSpeed * movDir, rb2d.velocity.y);
+        if (movDir != 0) transform.localScale = new Vector2(movDir, transform.localScale.y);
     }
 
     private void DoMoveAnim()
