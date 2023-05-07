@@ -2,12 +2,14 @@ public class Constants
 {
     // Pref
     public static string PREF_TOTAL_SCORE = "total_score";
+    public static string PREF_HEALTH = "health";
 
     // Gameobject name
     public static string NAME_PLATFORM = "Platform";
     public static string NAME_FINISH = "Finish";
     public static string NAME_EGGS = "Eggs";
     public static string NAME_COIN = "Coin";
+    public static string NAME_CHECKPOINT = "CheckPoint";
 
     // Tag
     public static string TAG_PICKUP = "Pickup";
@@ -27,4 +29,5 @@ public class Constants
 
     //
     public static float DEADLINE_Y_POINT = -10f;
+    public static int PLAYER_MAX_HEALTH = 3;
 }

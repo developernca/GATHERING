@@ -10,6 +10,7 @@ public class UIHandler : MonoBehaviour
     public Button btnRestart;
     public Text txtLevel;
     public Text txtScore;
+    public Text txtPlayerHealth;
     public Image imgFinishTrans;
     private int totalScore;
     private int score;
@@ -29,6 +30,7 @@ public class UIHandler : MonoBehaviour
 
     private void Start()
     {
+        txtPlayerHealth.text = "x" + PlayerPrefs.GetInt(Constants.PREF_HEALTH, Constants.PLAYER_MAX_HEALTH);
         objPanelTutorial.SetActive(true);
         StartCoroutine(HideTutorial());
     }
@@ -37,6 +39,7 @@ public class UIHandler : MonoBehaviour
     {
         Player.PlayerPickup += OnPlayerPickup;
         Player.PlayerPickupFinish += OnPlayerPickupFinish;
+        Player.PlayerGotoCheckPoint += OnPlayerGotoCheckPoint;
         Player.PlayerDead += OnPlayerDead;
         Enemy.GivePlayerScore += OnGivePlayerScore;
     }
@@ -45,6 +48,7 @@ public class UIHandler : MonoBehaviour
     {
         Player.PlayerPickup -= OnPlayerPickup;
         Player.PlayerPickupFinish -= OnPlayerPickupFinish;
+        Player.PlayerGotoCheckPoint -= OnPlayerGotoCheckPoint;
         Player.PlayerDead -= OnPlayerDead;
         Enemy.GivePlayerScore -= OnGivePlayerScore;
     }
@@ -64,6 +68,11 @@ public class UIHandler : MonoBehaviour
     private void OnPlayerPickupFinish()
     {
         StartCoroutine(LevelTransit());
+    }
+
+    private void OnPlayerGotoCheckPoint(Player playerInfo)
+    {
+        txtPlayerHealth.text = "x" + playerInfo.health;
     }
 
     private void OnPlayerDead()

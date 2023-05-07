@@ -464,3 +464,4 @@ MonoBehaviour:
   animator: {fileID: 1971014850166547195}
   moveSpeed: 6
   jumpSpeed: 28
+  maxHealth: 2

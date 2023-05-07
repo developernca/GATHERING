@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public static event UnityAction PlayerDead;
+    public static event UnityAction<Player> PlayerGotoCheckPoint;
     public static event UnityAction<int> PlayerPickup;
     public static event UnityAction PlayerPickupFinish;
     public AudioSource audioCoinPickup;
@@ -16,23 +17,35 @@ public class Player : MonoBehaviour
     public Animator animator;
     public float moveSpeed;
     public float jumpSpeed;
+    public int health;
+    private Vector2 checkPointPos;
     private string[] groundCheckLayerMasks;
-    private bool movePressed;
     private bool jumpPressed;
     private float movDir;
 
     private void Awake()
     {
         groundCheckLayerMasks = new string[] { Constants.LY_PLATFORM, Constants.LY_FENCE, Constants.LY_ENEMY };
-        movePressed = false;
         jumpPressed = false;
+        checkPointPos = transform.position;
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        if (currentLevel == 1)
+        {
+            // Clear and set default value for health when level 1 start.
+            health = Constants.PLAYER_MAX_HEALTH;
+            PlayerPrefs.SetInt(Constants.PREF_HEALTH, Constants.PLAYER_MAX_HEALTH);
+        }
+        else
+        {
+            health = PlayerPrefs.GetInt(Constants.PREF_HEALTH, Constants.PLAYER_MAX_HEALTH);
+        }
     }
 
     private void FixedUpdate()
     {
         DoMove();
         DoJump();
-        CheckDead();
+        CheckDeadWhenFallen();
     }
 
     private void Update()
@@ -51,6 +64,7 @@ public class Player : MonoBehaviour
     {
         CoinPickup(other);
         FinishPickup(other);
+        CheckPointPickup(other);
     }
 
     private void CheckEnemyCollision(Collision2D other)
@@ -69,7 +83,7 @@ public class Player : MonoBehaviour
             // collide from side, player dead. Game over.
             audioPlayerDead.Play();
             rb2d.AddForce(Vector2.up * 20f, ForceMode2D.Impulse);
-            Destroy(b2d);
+            b2d.enabled = false;
         }
     }
 
@@ -90,7 +104,17 @@ public class Player : MonoBehaviour
         if (other.gameObject.name == Constants.NAME_FINISH)
         {
             enabled = false;
+            PlayerPrefs.SetInt(Constants.PREF_HEALTH, health);
             PlayerPickupFinish?.Invoke();
+        }
+    }
+
+    private void CheckPointPickup(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag(Constants.TAG_PICKUP)) return;// not pickup
+        if (other.gameObject.name.Contains(Constants.NAME_CHECKPOINT))
+        {
+            checkPointPos = other.gameObject.transform.position;
         }
     }
 
@@ -125,13 +149,21 @@ public class Player : MonoBehaviour
         jumpPressed = false;
     }
 
-    private void CheckDead()
+    private void CheckDeadWhenFallen()
     {
-        if (rb2d.position.y <= Constants.DEADLINE_Y_POINT)
+        if (rb2d.position.y > Constants.DEADLINE_Y_POINT) return;
+        if (--health < 1)
         {
+            // Player dead
+            PlayerPrefs.SetInt(Constants.PREF_HEALTH, Constants.PLAYER_MAX_HEALTH);
             PlayerDead?.Invoke();
             Destroy(gameObject);
+            return;
         }
+        // Player go to last checkpoint
+        PlayerGotoCheckPoint?.Invoke(this);
+        rb2d.position = checkPointPos;
+        b2d.enabled = true;
     }
 
     private bool GroundCheck()

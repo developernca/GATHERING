@@ -52,6 +52,11 @@ public class Enemy : MonoBehaviour
         enabled = true;
     }
 
+    private void OnBecameInvisible()
+    {
+        enabled = false;
+    }
+
     private void OnDisable()
     {
         Player.PlayerDead -= OnPlayerDead;
