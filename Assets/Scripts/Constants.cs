@@ -27,7 +27,10 @@ public class Constants
     public static string MOV = "mov";
     public static string JMP = "jmp";
 
+    // Boxplatform animation
+    public static string RESPAWN = "respawn";
+
     //
-    public static float DEADLINE_Y_POINT = -10f;
+    public static float DEADLINE_Y_POINT = -10.75f;
     public static int PLAYER_MAX_HEALTH = 3;
 }
