@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private string[] groundCheckLayerMasks;
     private bool jumpPressed;
     private float movDir;
+    [HideInInspector]
+    public bool stickToPlatform;
 
     private void Awake()
     {
@@ -124,7 +126,14 @@ public class Player : MonoBehaviour
     }
     private void DoMove()
     {
-        rb2d.velocity = new Vector2(moveSpeed * movDir, rb2d.velocity.y);
+        if (stickToPlatform)
+        {
+            rb2d.velocity = new Vector2(0f, rb2d.velocity.y);
+        }
+        else
+        {
+            rb2d.velocity = new Vector2(moveSpeed * movDir, rb2d.velocity.y);
+        }
         if (movDir != 0) transform.localScale = new Vector2(movDir, transform.localScale.y);
     }
 
@@ -135,7 +144,7 @@ public class Player : MonoBehaviour
 
     private void DoJumpInput()
     {
-        if (!jumpPressed) jumpPressed = Input.GetKeyDown(KeyCode.C);
+        if (!jumpPressed) jumpPressed = Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.Space);
     }
 
     private void DoJump()
